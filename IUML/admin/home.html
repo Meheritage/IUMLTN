@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../assets/ico/favicon.png">
+    <title>IUML-Home</title>
+    <!-- Bootstrap core CSS -->
+
+    <link href='../css/fonts.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link href="../dist/css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../css/navmenu-reveal.css" rel="stylesheet">
+    <link href="../css/style2.css" rel="stylesheet">
+    <link href="../css/full-slider.css" rel="stylesheet">
+    <link href="../css/Icomoon/style.css" rel="stylesheet" type="text/css" />
+    <link href="../css/animated-masonry-gallery.css" rel="stylesheet" type="text/css" />
+    <link href="../css/lightbox.css" rel="stylesheet" type="text/css" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="../js/html5shiv.js"></script>
+        <script src="../js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .canvas {
+            background-color: white !important;
+        }
+
+        .container {
+            width: 97% !important;
+            margin-left: 0px;
+        }
+
+        #gallery-content-center img {
+            /*margin-left: 25px !important;*/
+        }
+
+        .gallery-content-center-full {
+            /*width: 980px !important;*/
+        }
+
+        @media (max-width: 1090px) {
+            .carousel, .item, .active {
+                margin-top: 0px !important;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            #gallery-content-center img {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="alertPopup" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <label id="lblAlertMesage" style="font-weight: normal;">
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnOkAlert" type="button" data-dismiss="modal" class="btn btn-primary">
+                        <i class="fa fa-exclamation-triangle" style="color: white;">&nbsp;&nbsp;</i>Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="DeleteImagePopup" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title">
+                        Delete Image
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete selected image(s)?
+                </div>
+                <div class="modal-footer">
+                    <button id="btnDeleteImageConfirm" type="button" data-dismiss="modal" class="btn btn-danger"
+                            onclick="btnDeleteImageConfirm_Click();">
+                        <i class="fa fa-trash-o">&nbsp;&nbsp;</i>Delete
+                    </button>
+                    <button id="btnCancelImageConfirm" type="button" data-dismiss="modal" class="btn btn-primary">
+                        <i class="fa fa-times">&nbsp;&nbsp;</i>Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bar">
+        <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navmenu navmenu-default navmenu-fixed-left">
+        <ul class="nav navmenu-nav">
+            <li><a href="../admin/home.html">Home</a></li>
+            <li><a href="../admin/gallery.html">Gallery</a></li>
+           <!-- <li><a href="../admin/portrait.html">Portrait</a></li>
+            <li><a href="../admin/landscape.html">Landscape</a></li>
+            <li><a href="#" onclick="Setting();">Setting</a></li>-->
+            <li><a href="#" onclick="Logout();">Logout</a></li>
+        </ul>
+        <a class="navmenu-brand" href="#"><img src="../img/logo.png" width="160"></a>
+    </div>
+    <div id="myCarousel" class="canvas carousel slide" data-ride="carousel" style="padding-top:25px; padding-bottom:25px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-centered">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li id="tab_PageSection_1" class="active" role="presentation"><a href="#pageView_PageSection_1" aria-controls="pageView_PageSection_1" role="tab" data-toggle="tab">Home</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="pageView_PageSection_1" role="tabpanel" class="tab-pane active" style="border-left: 1px solid #ECF0F1; border-right: 1px solid #ECF0F1; border-bottom: 1px solid #ECF0F1;">
+                            <button id="btnFileDelete" type="button" class="btn btn-danger DeleteButton" onclick="btnFileDelete_ClientClick();">
+                                <i class="fa fa-trash fa-2x"></i>
+                            </button>
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-lg-7 col-centered">
+                                    <div class="col-lg-6" style="padding-top:7px;padding-bottom:10px;">
+                                        <input id="fileUpload" type="file" name="fileUpload" multiple accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*" />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button id="btnFileUpload" type="button" class="btn btn-primary" onclick="btnFileUpload_ClientClick();">
+                                            <i class="fa fa-upload"></i>&nbsp;Upload
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-7 col-centered">
+                                    <div class="col-lg-12" style="padding-top:7px;padding-bottom:10px;">
+                                        <i>Note : Maximum 5 images will be displayed.</i>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-lg-12 col-centered">
+                                    <div class="row">
+                                        <div id="pnlImageLoad">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+   <script src="../eternity/js/ajax-libs-jquery-1.12.0-jquery.min.js"></script>
+    <script src="../eternity/js/bootstrap.min.js"></script>
+      <script src="../js/jquery-2.2.4.js"></script>
+    <script src="../js/Shajan_Cam.js"></script>
+    <script src="../js/waitingDialog.js"></script>
+
+    <script type="text/javascript">
+        //var input = document.querySelector('input');
+        //input.addEventListener('change', fileUpload_ClientSelect);
+
+        $(document).ready(function () {
+            localStorage.setItem("SHAJAN_CAM_USERID", "1");
+            if (localStorage.getItem("SHAJAN_CAM_USERID") == "" || localStorage.getItem("SHAJAN_CAM_USERID") == null ||
+                localStorage.getItem("SHAJAN_CAM_USERID") == undefined)//
+            {
+                window.location = "login.html";
+            }
+
+            waitingDialog.show("Please Wait...", { dialogSize: 'sm', progressType: 'warning' });
+            $("#btnFileDelete").css("display", "none");
+            Get_ImageList_by_ImageType("home", "", "pnlImageLoad", "admin");
+            imgCheckBox_Click();
+        });
+
+        function btnFileDelete_ClientClick()//
+        {
+            var arr = [];
+            $('input[type="checkbox"]:checked').each(function () {
+                arr.push($(this).val());
+            });
+
+            if (arr.length <= 0)//
+            {
+                OpenAlertPopup("Select image(s) for delete.", "danger");
+            }
+            else//
+            {
+                $("#DeleteImagePopup").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
+            }
+        }
+
+        function btnDeleteImageConfirm_Click()//
+        {
+            var arr = [];
+            $('input[type="checkbox"]:checked').each(function () {
+                arr.push($(this).val());
+            });
+
+            if (arr.length <= 0)//
+            {
+                OpenAlertPopup("Select image(s) for delete.", "danger");
+            }
+            else//
+            {
+                $("#btnFileDelete").attr("disabled", "disabled");
+                $("#btnFileDelete").html("<i class='fa fa-spinner fa-2x fa-spin'></i>");
+
+                waitingDialog.show("Please Wait...", { dialogSize: 'sm', progressType: 'warning' });
+                Delete_Selected_Images("home", "", "pnlImageLoad", "admin", arr.toString(), "btnFileDelete")
+            }
+        }
+
+        function btnFileUpload_ClientClick()//
+        {
+            var fileUpload = $("#fileUpload").get(0);
+            var files = fileUpload.files;
+
+            if (files.length <= 0)//
+            {
+                OpenAlertPopup("Select image file(s) for upload.", "danger");
+            }
+            else//
+            {
+                $("#btnFileUpload").attr("disabled", "disabled");
+                $("#btnFileUpload").html("<i class='fa fa-spinner fa-spin'></i>&nbsp;&nbsp;Please wait&nbsp;");
+
+                waitingDialog.show("Please Wait...", { dialogSize: 'sm', progressType: 'warning' });
+                Upload_Image_via_Service("home", files, "btnFileUpload", "", "pnlImageLoad", localStorage.getItem("SHAJAN_CAM_USERID"), "admin");
+                $("#fileUpload").val(null);
+            }
+        }
+    </script>
+
+    <script src="../dist/js/jasny-bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/isotope.js"></script>
+    <script type="text/javascript" src="../js/animated-masonry-gallery.js"></script>
+    <script src="../js/lightbox.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BTECC">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Engineering and construction Company">
+    <link rel="shortcut icon" href="../img/favicon.png">
+
+    <title>Login Page-IUML</title>
+
+    <!-- Bootstrap CSS -->    
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <!-- bootstrap theme -->
+    <link href="../css/css/bootstrap-theme.css" rel="stylesheet" />
+    <!--external css-->
+    <!-- font icon -->
+    <link href="../css/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="../css/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="../css/css/style.css" rel="stylesheet" />
+    <link href="../css/css/style-responsive.css" rel="stylesheet" />
+
+   
+
+
+     <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/materialdesignicons.min.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+       <style>
+.right {
+    position: absolute;
+    right: 800px;
+    width: 500px;
+    border: 0px solid #73AD21;
+    padding: 0px;
+}
+</style>
+</head>
+
+  <body >
+   <div id="alertPopup" class="modal fade">
+        <div class="right">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <label id="lblAlertMesage" style="font-weight: normal;">
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnOkAlert" type="button" data-dismiss="modal" class="btn btn-primary">
+                        <i class="fa fa-exclamation-triangle" style="color: white;">&nbsp;&nbsp;</i>Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+     
+      <form class="login-form" >        
+        <div class="login-wrap">
+       
+            <p class="login-img"><i class="fa fa-lock" aria-hidden="true"></i></p>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" id="txtUserName" runat="server" class="form-control" placeholder="Username" autocomplete="off" onkeypress="txtUserName_KeyPress(event);" autofocus />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></span>
+                <input type="password" id="txtPassword" runat="server" class="form-control" placeholder="Password" onkeypress="txtPassword_KeyPress(event);" />
+            </div>
+            
+            <button class="btn btn-primary btn-lg btn-block"  id="btnLogin" type="button"  onclick="btnLogin_ClientClick();">Login</button>
+             <button class="btn btn-success btn-lg btn-block" type="submit"><a href="../index.html">Back to Home</a></button>
+        </div>
+      </form>
+
+    </div>
+
+   <script src="../eternity/js/ajax-libs-jquery-1.12.0-jquery.min.js"></script>
+    <script src="../eternity/js/bootstrap.min.js"></script>
+      <script src="../js/jquery-2.2.4.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function txtUserName_KeyPress(e)//
+        {
+            var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+
+            if (keyCode == 13)//
+            {
+                $("#btnLogin").click();
+            }
+        }
+
+        function txtPassword_KeyPress(e)//
+        {
+            var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+
+            if (keyCode == 13)//
+            {
+                $("#btnLogin").click();
+            }
+        }
+
+        function OpenAlertPopup(_Msg, _status)//
+        {
+            $("#btnOkAlert").removeAttr("class");
+            if (_status == "danger")//
+            {
+                $("#btnOkAlert").addClass("btn btn-danger");
+            }
+            else if (_status == "warning")//
+            {
+                $("#btnOkAlert").addClass("btn btn-warning");
+            }
+            else if (_status == "success")//
+            {
+                $("#btnOkAlert").addClass("btn btn-success");
+            }
+            else if (_status == "info")//
+            {
+                $("#btnOkAlert").addClass("btn btn-info");
+            }
+            else//
+            {
+                $("#btnOkAlert").addClass("btn btn-primary");
+            }
+            $("#lblAlertMesage").html(_Msg);
+            $("#alertPopup").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+        }
+
+        function Set_TableHight_with_Browse()//
+        {
+            var BrowserHight = document.documentElement.clientHeight;
+            ContectTable.style.height = (BrowserHight - 15) + "px";
+        }
+
+        function btnLogin_ClientClick()//
+        {
+            var _status = true;
+            var _msg = "";
+            
+            if (($("#txtUserName").val() == null || $("#txtUserName").val() == "" || $("#txtUserName").val() == undefined) &&
+                ($("#txtPassword").val() == null || $("#txtPassword").val() == "" || $("#txtPassword").val() == undefined))//
+            {
+                _status = false;
+                _msg += "<li>Please enter user name and password.</li>";
+            }
+            else//
+            {
+                if ($("#txtUserName").val() == null || $("#txtUserName").val() == "" || $("#txtUserName").val() == undefined)//
+                {
+                    _status = false;
+                    _msg += "</li>Please enter user name.</li>";
+                }
+
+                if ($("#txtPassword").val() == null || $("#txtPassword").val() == "" || $("#txtPassword").val() == undefined)//
+                {
+                    _status = false;
+                    _msg += "</li>Please enter password.</li>";
+                }
+            }
+
+            if (!_status)//
+            {
+                OpenAlertPopup(_msg, "danger");
+            }
+            else///
+            {
+                $("#btnLogin").attr("disabled", "disabled");
+                $("#btnLogin").html("<i class='fa fa-spinner fa-spin'></i>&nbsp;&nbsp;Please wait&nbsp;");
+
+                var Check_Validation_Param = {
+                    _UserName: $("#txtUserName").val(),
+                    _Password: $("#txtPassword").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "../mani.aspx/Check_Login",
+                    data: JSON.stringify(Check_Validation_Param),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.d != null && data.d != undefined)//
+                        {
+                            var _jsonData = JSON.parse(data.d);
+                            if (_jsonData.length == 0)//
+                            {
+                                OpenAlertPopup("User Name or Password is incorrect.", "danger");
+                            }
+                            else//
+                            {
+                                for (var i = 0; i < _jsonData.length; i++)//
+                                {
+                                    var dataItem = _jsonData[i];
+                                    localStorage.setItem("BTECC_USERID", dataItem.ID);
+                                    window.location = "upload.aspx";
+                                }
+                            }
+
+                            $("#btnLogin").removeAttr("disabled");
+                            $("#btnLogin").html("<i class='fa fa-sign-in'></i>&nbsp;login");
+                        }
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            Set_TableHight_with_Browse();
+        });
+    </script>
+   
+  </body>
+</html>

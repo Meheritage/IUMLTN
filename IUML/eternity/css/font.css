@@ -1,0 +1,29 @@
+@font-face {
+	font-family: 'framd';
+	src: url('./framd.eot');
+	src: local('framd'), url('./framd.woff') format('woff'), url('./framd.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_8179">Text with this font applied</p> */
+.fontsforweb_fontid_8179 {
+	font-family: 'framd' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */
+@font-face {
+	font-family: 'FRAMDCN';
+	src: url('./FRAMDCN.eot');
+	src: local('FRAMDCN'), url('./FRAMDCN.woff') format('woff'), url('./FRAMDCN.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_1381">Text with this font applied</p> */
+.fontsforweb_fontid_1381 {
+	font-family: 'FRAMDCN' !important;
+}
+@font-face {
+	font-family: 'CabinRegular';
+	src: url('./CabinRegular.eot');
+	src: local('CabinRegular'), url('./CabinRegular.woff') format('woff'), url('./CabinRegular.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_7670">Text with this font applied</p> */
+.fontsforweb_fontid_7670 {
+	font-family: 'CabinRegular' !important;
+}
