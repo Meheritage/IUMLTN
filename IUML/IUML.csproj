@@ -812,6 +812,7 @@
     <Content Include="img\video-1.jpg" />
     <Content Include="img\who-we.jpg" />
     <Content Include="img\work-bg.jpg" />
+    <Content Include="index.html" />
     <Content Include="js\animated-masonry-gallery.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\Btecc.js" />
