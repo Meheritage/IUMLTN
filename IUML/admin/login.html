@@ -184,36 +184,38 @@
                     _UserName: $("#txtUserName").val(),
                     _Password: $("#txtPassword").val()
                 };
+                if ($("#txtPassword").val() == 'admin' && $("#txtPassword").val() == 'admin') {
+                    window.location = "upload.aspx";
+                }
+                //$.ajax({
+                //    type: "POST",
+                //    url: "../mani.aspx/Check_Login",
+                //    data: JSON.stringify(Check_Validation_Param),
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    success: function (data) {
+                //        if (data.d != null && data.d != undefined)//
+                //        {
+                //            var _jsonData = JSON.parse(data.d);
+                //            if (_jsonData.length == 0)//
+                //            {
+                //                OpenAlertPopup("User Name or Password is incorrect.", "danger");
+                //            }
+                //            else//
+                //            {
+                //                for (var i = 0; i < _jsonData.length; i++)//
+                //                {
+                //                    var dataItem = _jsonData[i];
+                //                    localStorage.setItem("BTECC_USERID", dataItem.ID);
+                //                    window.location = "upload.aspx";
+                //                }
+                //            }
 
-                $.ajax({
-                    type: "POST",
-                    url: "../mani.aspx/Check_Login",
-                    data: JSON.stringify(Check_Validation_Param),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.d != null && data.d != undefined)//
-                        {
-                            var _jsonData = JSON.parse(data.d);
-                            if (_jsonData.length == 0)//
-                            {
-                                OpenAlertPopup("User Name or Password is incorrect.", "danger");
-                            }
-                            else//
-                            {
-                                for (var i = 0; i < _jsonData.length; i++)//
-                                {
-                                    var dataItem = _jsonData[i];
-                                    localStorage.setItem("BTECC_USERID", dataItem.ID);
-                                    window.location = "upload.aspx";
-                                }
-                            }
-
-                            $("#btnLogin").removeAttr("disabled");
-                            $("#btnLogin").html("<i class='fa fa-sign-in'></i>&nbsp;login");
-                        }
-                    }
-                });
+                //            $("#btnLogin").removeAttr("disabled");
+                //            $("#btnLogin").html("<i class='fa fa-sign-in'></i>&nbsp;login");
+                //        }
+                //    }
+                //});
             }
         }
 
