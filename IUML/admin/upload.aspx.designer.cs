@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IUML.admin
-{
-
-
-    public partial class upload
-    {
-
+namespace IUML.admin {
+    
+    
+    public partial class upload {
+        
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+        
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-
+        
         /// <summary>
         /// txtDate control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtDate;
-
+        
         /// <summary>
         /// fileUpload control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileUpload;
-
+        
         /// <summary>
         /// btnUpload control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload;
-
+        
         /// <summary>
         /// lblMessage control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-
+        
         /// <summary>
         /// updatepnl control.
         /// </summary>
@@ -76,7 +74,34 @@ namespace IUML.admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel updatepnl;
-
+        
+        /// <summary>
+        /// ddl_year control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_year;
+        
+        /// <summary>
+        /// hdn_value control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hdn_value;
+        
+        /// <summary>
+        /// ddl_month control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_month;
+        
         /// <summary>
         /// grd_PDFList control.
         /// </summary>

@@ -35,11 +35,14 @@ namespace IUML
         protected void btn_view_Click(object sender, EventArgs e)
         {
             string filename = "";
+            string year = DateTime.Now.Year.ToString();
+            string Month = DateTime.Now.Date.ToString("MMMM");
             using (SqlConnection con = new SqlConnection(_IUMLCon))
             {
                 string qry;
                 //qry = "SELECT top 1 FileName FROM iumltn_manichuder where Created_Year =YEAR(getdate())  and Created_Month  = DATENAME(month, GETDATE())   order by Created_Date desc";
-                qry = "SELECT top 1 FileName   FROM iumltn_manichuder order by Created_Date desc";
+                //qry = "SELECT top 1 FileName   FROM iumltn_manichuder order by Created_Date desc";
+                qry = "select  top 1 FileName  from iumltn_manichuder where Created_Year='" + year.ToString() + "' and Created_Month='" + Month.ToString() + "' order by DayofMonth desc";
                 using (SqlCommand cmd = new SqlCommand(qry, con))
                 {
                     con.Open();

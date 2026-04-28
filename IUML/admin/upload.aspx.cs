@@ -23,7 +23,8 @@ namespace IUML.admin
                 if (!IsPostBack)
                 {
                     txtDate.Value = DateTime.Now.ToString("dd-MM-yyyy");
-                    Bind_grd_PDFList();
+                    BindYear();
+                    Bind_grd_PDFList("");
 
                 }
 
@@ -34,6 +35,102 @@ namespace IUML.admin
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "temp", "<script language='javascript'>OpenAlertPopup('" + ex.Message + "','danger');</script>", false);
 
             }
+        }
+
+        void BindYear()
+        {
+            try
+            {
+                string _year = DateTime.Now.Date.Year.ToString();
+                DataTable _dt = new DataTable();
+                using (SqlConnection con = new SqlConnection(_IUMLCon))
+                {
+                    string qry = "SELECT distinct Created_Year FROM iumltn_manichuder   order by Created_Year desc ";
+                    con.Open();
+                    SqlDataAdapter _adapter = new SqlDataAdapter(qry, con);
+                    _adapter.Fill(_dt);
+                    _adapter.Dispose();
+                    con.Close();
+                    if (_dt.Rows.Count > 0)
+                    {
+                        ddl_year.DataSource = _dt;
+                        ddl_year.DataTextField = "Created_Year";
+                        ddl_year.DataValueField = "Created_Year";
+                        ddl_month.SelectedValue = _year;
+                        ddl_year.DataBind();
+                        ddl_year.Items.Insert(0, new ListItem("Select", "")); //updated code
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        protected void ddl_year_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            if (ddl_year.SelectedValue == null || ddl_year.SelectedValue == "")
+            {
+
+            }
+            else
+            {
+                BindMonth(ddl_year.Text.Trim());
+                Bind_grd_PDFList(ddl_year.Text.Trim()); ;
+            }
+
+
+
+        }
+        void BindMonth(string _year)
+        {
+            try
+            {
+                string monthname = DateTime.Now.Date.ToString("MMMM");
+                DataTable _dt = new DataTable();
+                int currentyear = DateTime.Now.Year;
+                using (SqlConnection con = new SqlConnection(_IUMLCon))
+                {
+                    string qry;
+                    if (string.IsNullOrEmpty(_year))
+                    {
+                        qry = "\r\nSELECT Created_Month\r\nFROM (\r\n    SELECT DISTINCT \r\n        Created_Month,\r\n        CASE Created_Month\r\n            WHEN 'December' THEN 1\r\n\t\t\t  WHEN 'November'  THEN 2\r\n\t\t\t   WHEN 'October'   THEN 3\r\n\t\t\t    WHEN 'September' THEN 4\r\n\t\t\t\t WHEN 'August'   THEN 5\r\n\t\t\t\t  WHEN 'July'     THEN 6\r\n\t\t\t\t  WHEN 'June'     THEN 7\r\n\t\t\t\t  WHEN 'May'      THEN 8\r\n\t\t\t\t  WHEN 'April'    THEN 9\r\n\t\t\t\t  WHEN 'March'    THEN 10\r\n\t\t\t\t  WHEN 'February' THEN 11\r\n            WHEN 'January'  THEN 12\r\n        END AS MonthOrder\r\n    FROM iumltn_manichuder\r\n) AS m\r\nORDER BY m.MonthOrder; ";
+
+                    }
+                    else
+                    {
+                        qry = "\r\nSELECT Created_Month\r\nFROM (\r\n    SELECT DISTINCT \r\n        Created_Month,\r\n        CASE Created_Month\r\n            WHEN 'December' THEN 1\r\n\t\t\t  WHEN 'November'  THEN 2\r\n\t\t\t   WHEN 'October'   THEN 3\r\n\t\t\t    WHEN 'September' THEN 4\r\n\t\t\t\t WHEN 'August'   THEN 5\r\n\t\t\t\t  WHEN 'July'     THEN 6\r\n\t\t\t\t  WHEN 'June'     THEN 7\r\n\t\t\t\t  WHEN 'May'      THEN 8\r\n\t\t\t\t  WHEN 'April'    THEN 9\r\n\t\t\t\t  WHEN 'March'    THEN 10\r\n\t\t\t\t  WHEN 'February' THEN 11\r\n            WHEN 'January'  THEN 12\r\n        END AS MonthOrder\r\n    FROM iumltn_manichuder\r\n where  created_year='" + _year + "' ) AS m\r\nORDER BY m.MonthOrder; ";
+                    }
+
+                    con.Open();
+                    SqlDataAdapter _adapter = new SqlDataAdapter(qry, con);
+                    _adapter.Fill(_dt);
+                    _adapter.Dispose();
+                    con.Close();
+                    if (_dt.Rows.Count > 0)
+                    {
+                        ddl_month.DataSource = _dt;
+
+                        ddl_month.DataTextField = "Created_Month";
+                        ddl_month.DataValueField = "Created_Month";
+                        //ddl_month.SelectedValue = monthname;
+                        ddl_month.DataBind();
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
         protected void btnUpload_Click(object sender, EventArgs e)
         {
@@ -50,7 +147,7 @@ namespace IUML.admin
                 {
                     lblMessage.Text = "Please select a PDF file!";
                     lblMessage.ForeColor = Color.Red;
-                    Bind_grd_PDFList();
+                    Bind_grd_PDFList("");
                     return;
                 }
 
@@ -58,7 +155,7 @@ namespace IUML.admin
                 {
                     lblMessage.Text = "Only PDF files allowed!";
                     lblMessage.ForeColor = Color.Red;
-                    Bind_grd_PDFList();
+                    Bind_grd_PDFList("");
                     return;
                 }
 
@@ -119,7 +216,7 @@ namespace IUML.admin
 
                     }
                 }
-                Bind_grd_PDFList();
+                Bind_grd_PDFList("");
             }
             catch (Exception ex)
             {
@@ -134,9 +231,9 @@ namespace IUML.admin
         protected void grd_PDFList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             grd_PDFList.PageIndex = e.NewPageIndex;
-            Bind_grd_PDFList();
+            Bind_grd_PDFList("");
         }
-        public void Bind_grd_PDFList()
+        public void Bind_grd_PDFList(string filter)
         {
             try
             {
@@ -144,7 +241,16 @@ namespace IUML.admin
                 {
                     DataTable _dt = new DataTable();
                     ViewState["PDFList"] = _dt;
-                    using (SqlCommand cmd = new SqlCommand("SELECT top 50 id,fulllPath,FileName,Created_Year,Created_Month,convert(vaRCHAR(10),Created_Date,103) AS AsofDate FROM iumltn_manichuder where year(Created_Date)=year(getdate())  order by asofdate desc  ", con))
+                    string Qry = "";
+                    if (filter != null)
+                    {
+                        Qry = "SELECT top 50 id,fulllPath,FileName,Created_Year,Created_Month,convert(vaRCHAR(10),Created_Date,103) AS AsofDate FROM iumltn_manichuder where Created_Year ='" + ddl_year.Text.Trim() + "'  and Created_Month  = '" + ddl_month.Text.Trim() + "'   order by asofdate desc  ";
+                    }
+                    else
+                    {
+                        Qry = "SELECT top 50 id,fulllPath,FileName,Created_Year,Created_Month,convert(vaRCHAR(10),Created_Date,103) AS AsofDate FROM iumltn_manichuder where Created_Year ='" + ddl_year.Text.Trim() + "'  and Created_Month  = '" + ddl_month.Text.Trim() + "'  order by asofdate desc  ";
+                    }
+                        using (SqlCommand cmd = new SqlCommand(Qry, con))
                     {
                         con.Open();
                         SqlDataAdapter _adapter = new SqlDataAdapter(cmd);
@@ -243,7 +349,7 @@ namespace IUML.admin
                     }
                     
                 }
-                Bind_grd_PDFList();
+                Bind_grd_PDFList("");
 
             }
             catch (Exception ex)
@@ -252,6 +358,11 @@ namespace IUML.admin
                 lblMessage.ForeColor = Color.Red;
             }
 
+        }
+        protected void ddl_month_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            Bind_grd_PDFList(ddl_month.Text.Trim()); ;
         }
         protected void grd_PDFList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
